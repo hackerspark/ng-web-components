@@ -2,5 +2,127 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "CommonComponent": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/CommonComponent",
+      "sourceRoot": "projects/CommonComponent/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/CommonComponent",
+            "index": "projects/CommonComponent/src/index.html",
+            "main": "projects/CommonComponent/src/main.ts",
+            "polyfills": "projects/CommonComponent/src/polyfills.ts",
+            "tsConfig": "projects/CommonComponent/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/CommonComponent/src/favicon.ico",
+              "projects/CommonComponent/src/assets"
+            ],
+            "styles": [
+              "projects/CommonComponent/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/CommonComponent/src/environments/environment.ts",
+                  "with": "projects/CommonComponent/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "CommonComponent:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "CommonComponent:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "CommonComponent:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/CommonComponent/src/test.ts",
+            "polyfills": "projects/CommonComponent/src/polyfills.ts",
+            "tsConfig": "projects/CommonComponent/tsconfig.spec.json",
+            "karmaConfig": "projects/CommonComponent/karma.conf.js",
+            "assets": [
+              "projects/CommonComponent/src/favicon.ico",
+              "projects/CommonComponent/src/assets"
+            ],
+            "styles": [
+              "projects/CommonComponent/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/CommonComponent/tsconfig.app.json",
+              "projects/CommonComponent/tsconfig.spec.json",
+              "projects/CommonComponent/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/CommonComponent/e2e/protractor.conf.js",
+            "devServerTarget": "CommonComponent:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "CommonComponent:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "CommonComponent"
 }
